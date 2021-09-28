@@ -1,0 +1,132 @@
+{% extends "layout_logged_in.html" %}
+
+{% block content %}
+    {% if posts[4][0]|length == 5 %}
+        {% for j in range(5) %}
+        <form action = '#' method = "post">
+            <fieldset id="question1">
+                <legend>{{ posts[4][0][j] }}</legend>
+                <audio controls="controls">
+                    <source src={{ posts[3][0][j] }}>
+                </audio>
+                <br>
+                <label>
+                    <div class = "holder">
+                    <INPUT TYPE="radio" NAME="input" VALUE="false">
+                    <span class="checkmark"></span>
+                    A) {{ posts[5][0][j][0] }}
+                    </div><BR></label>
+                    <div class = "holder">
+                    <INPUT TYPE="radio" NAME="input" VALUE="false">
+                    <span class="checkmark"></span>
+                    B) {{ posts[5][0][j][1] }}
+                    </div>
+                    <br>
+                    <div class = "holder">
+                    <INPUT TYPE="radio" NAME="input" VALUE="true">
+                    C) {{ posts[5][0][j][2] }}
+                    </div>
+                    <br>
+
+                <input type="button" id="marker" value="Check answer" onclick="getMark();disable(marker)">
+                <div id="result"></div>
+            </fieldset>
+        </form>
+        <hr style="width:100%;text-align:left;margin-left:0;">
+        {% endfor %}
+
+    {% else %}
+        {% if "drive.google.com" in posts[5][0][0] %}
+            <form action = '#' method = "post">
+                <fieldset id="question1">
+                    <legend>{{ posts[4][0] }}</legend>
+                    <audio controls="controls">
+                        <source src={{ posts[3][0] }}>
+                    </audio>
+                    <br>
+                    <label>
+                        <div class = "holder">
+                        <INPUT TYPE="radio" NAME="input" VALUE="false" onclick = "enable('marker')">
+                        <span class="checkmark"></span>
+                        A) <img src= {{ posts[5][0][0] }} alt="Image 1">
+                        </div><BR></label>
+                    <label>
+                        <div class = "holder">
+                        <INPUT TYPE="radio" NAME="input" VALUE="false" onclick = "enable('marker')">
+                        <span class="checkmark"></span>
+                        B) <img src= {{ posts[5][0][1] }} alt="Image 2">
+                        </div><BR></label>
+                    <label>
+                        <div class = "holder">
+                        <INPUT TYPE="radio" NAME="input" VALUE="true" onclick = "enable('marker')">
+                        <span class="checkmark"></span>
+                        C) <img src= {{ posts[5][0][2] }} alt="Image 3">
+                        </div><BR></label>
+
+                    <input type="button" id="marker" value="Check answer" onclick="getMark();disable('marker');disableOptions();enable('next-btn')" disabled>
+                    <div id="result"></div>
+                </fieldset>
+                <input type="button" id="next-btn" value="Next question" onclick="hideQ()" disabled>
+            </form>
+            <hr style="width:100%;text-align:left;margin-left:0;">
+
+        {% else %}
+            <form action = '#' method = "post">
+                <fieldset id="question1">
+                    <legend>{{ posts[4][0] }}</legend>
+                    <audio controls="controls">
+                        <source src={{ posts[3][0] }}>
+                    </audio>
+                    <br>
+                    <label>
+                        <div class = "holder">
+                        <INPUT TYPE="radio" NAME="input" VALUE="false">
+                        <span class="checkmark"></span>
+                        A) {{ posts[5][0][0] }}
+                        </div><BR></label>
+                    <label>
+                        <div class = "holder">
+                        <INPUT TYPE="radio" NAME="input" VALUE="false">
+                        <span class="checkmark"></span>
+                        B) {{ posts[5][0][1] }}
+                        </div><BR></label>
+                    <label>
+                        <div class = "holder">
+                        <INPUT TYPE="radio" NAME="input" VALUE="true">
+                        <span class="checkmark"></span>
+                        C) {{ posts[5][0][2] }}
+                        </div><BR></label>
+
+                    <div id="result"></div>
+                </fieldset>
+            </form>
+            <hr style="width:100%;text-align:left;margin-left:0;">
+        {% endif %}
+    {% endif %}
+
+<script>
+    function enable(element_id){
+        document.getElementById(element_id).disabled = false;
+    }
+    function disableOptions(){
+        document.getElementById('question1').disabled = true;
+    }
+    function disable(element_id){
+        document.getElementById(element_id).disabled = true;
+    }
+    function hideQ(){
+        document.getElementById('question1').hidden = true;
+    }
+    function getMark() {
+        var ele = document.getElementsByName('input');
+            
+        for(i = 0; i < ele.length; i++) {
+            if (ele[i].checked && ele[i].value == "true"){
+                document.getElementById("result").innerHTML = ele[i].value;
+            }   else if (ele[i].checked && ele[i].value == "false"){
+                document.getElementById("result").innerHTML = ele[i].value;
+            }
+        }
+    }
+</script>
+{% endblock content %}

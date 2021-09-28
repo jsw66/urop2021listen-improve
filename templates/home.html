@@ -1,0 +1,14 @@
+{% extends "layout_logged_in.html" %}
+
+{% block content %}
+<div class="container" style = "text-align: auto;">
+  <h1 style = "align-self: center;">Please choose your proficiency level:</h1>
+</div>
+  <br>
+    <div class="btn-group">
+      <a href = "{{ url_for('b1') }}" class="btn btn-outline-dark" type="button">B1</a>
+      <a href = "{{ url_for('b2') }}" class="btn btn-outline-dark" type="button">B2</a>
+      <a href = "{{ url_for('c1') }}" class="btn btn-outline-dark" type="button">C1</a>
+    </div>
+</div>
+{% endblock content %}
