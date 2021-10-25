@@ -1,0 +1,307 @@
+{% extends "layout_logged_in.html" %}
+{% block content %}
+<br><br>
+
+<div class="quiz-container">
+    <div id="quiz"></div>
+</div>
+<br>
+
+<script>
+    (function(){
+    
+    // Variables
+    const quizContainer = document.getElementById('quiz');
+    const myQuestions = [{'id': 'ENGLM1019', 'question': 'The magazine is different to a local newspaper because of', 'audio': 'http://docs.google.com/uc?export=open&id=1o_ivpgEaWRgosfSB-r-zlRzQs9Bvflcd', 'qtype': 'text', 'answers': {'A': 'how often it is sold.', 'B': 'what it looks like.', 'C': 'what it contains.'}, 'correctAnswer': 'C'}, {'id': 'ENGLG526', 'question': 'What was the girl given for her birthday?', 'audio': 'http://docs.google.com/uc?export=open&id=1J1btX8e7lR5vmlRjc385PWpBtI8nDcN_', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1czEFyKTh5Ynah8cMmfes0PlaKFOVcNg-', 'B': 'https://drive.google.com/uc?export=view&id=1TIb0ryqWTIfPKdQuvm7wfLkemRwmO9Sk', 'C': 'https://drive.google.com/uc?export=view&id=1Lur8DunaoItt1gJ_ebnzrErRTjvl06KM'}, 'correctAnswer': 'B'}, {'id': 'ENGLM1094', 'question': 'Where does the band perform most regularly?', 'audio': 'http://docs.google.com/uc?export=open&id=1ReZZo3-Ti4n4hfK3zJ1_bcSINBpYI92l', 'qtype': 'text', 'answers': {'A': 'in a hotel', 'B': 'on a boat', 'C': 'at weddings'}, 'correctAnswer': 'B'}, {'id': 'ENGLG1169', 'question': 'What has the girl forgotten to bring?', 'audio': 'http://docs.google.com/uc?export=open&id=1XKryHCyfvOi5rVz7HSqT49FNdLyQ4s8A', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1UrS5jtTETi1msjwgOy4Hvbrjdekwp9hb', 'B': 'https://drive.google.com/uc?export=view&id=1t_lKAiyaiSCNfuRiNKwpqcxEncAVmRnC', 'C': 'https://drive.google.com/uc?export=view&id=19fFCb5TwIZOCrBZ1odvv-iyAgTYGX9jE'}, 'correctAnswer': 'A'}, {'id': 'ENGLG1159', 'question': "When is Kim's birthday party?", 'audio': 'http://docs.google.com/uc?export=open&id=1lL9thF35YiRVFqUpnmz_QdgyISc3UDdF', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1cQQkDri2-AokFgN5dl_lTIPenpmcfuQf', 'B': 'https://drive.google.com/uc?export=view&id=1lxyE13wl_afGLUKR-rA5Q5p6vEBrqroV', 'C': 'https://drive.google.com/uc?export=view&id=1LhoUxDrLx-jfGYa7-TSef1q0KPeV2sj6'}, 'correctAnswer': 'A'}, {'id': 'ENGLM1090', 'question': 'You hear a man talking to people at the beginning of a course. What is his main\r\npoint?', 'audio': 'http://docs.google.com/uc?export=open&id=1tGHEJ9H-kf2gzgllqrsLKYv5pIO_0txu', 'qtype': 'text', 'answers': {'A': 'the benefits of the course', 'B': 'how the course is organised', 'C': 'the local attractions of the area'}, 'correctAnswer': 'A'}, {'id': 'ENGLG1172', 'question': 'Which kind of T-shirt did the boy choose?', 'audio': 'http://docs.google.com/uc?export=open&id=100jbybdOOJfg0LvtwEMWpU0VcvsOPXzt', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1Wqld9GJvzlDM-iSjCh9LSjOiq-dX-4_g', 'B': 'https://drive.google.com/uc?export=view&id=1RgAfukUTVs0r41Wv3Ps-A9kY9VuyqDxy', 'C': 'https://drive.google.com/uc?export=view&id=1CEF_0DOwSuBEThi-m9m0EB--GGnYxmI5'}, 'correctAnswer': 'C'}, {'id': 'ENGLM1026', 'question': 'Frank finds ships quickly because he', 'audio': 'http://docs.google.com/uc?export=open&id=1_obtJszKJ1Dt8WAXiR-eDCtCBhb4aIPV', 'qtype': 'text', 'answers': {'A': 'reads history books.', 'B': 'is a professional diver.', 'C': 'uses the latest equipment.'}, 'correctAnswer': 'C'}, {'id': 'ENGLM1009', 'question': 'Jamie agrees to move into the new flat on', 'audio': 'http://docs.google.com/uc?export=open&id=1ufN0VrTnDaCzRh1pbrWKXEz9ZH0Y5tVn', 'qtype': 'text', 'answers': {'A': 'Saturday.', 'B': 'Sunday.', 'C': 'Monday.'}, 'correctAnswer': 'B'}, {'id': 'ENGGG454', 'question': ['What was the origin of Martin Middletonâ\x80\x99s love of travel?', 'When he visited Borneo, Martin', 'Since the early 1960s, wildlife filming has become', 'When he takes a holiday, Martin prefers to', 'Martin thought that the holiday-makers he saw in the Dominican Republic were'], 'audio': ['http://docs.google.com/uc?export=open&id=18OAoN9iF1_trDDtJDzAQzkBrCA1153Ee', 'http://docs.google.com/uc?export=open&id=18OAoN9iF1_trDDtJDzAQzkBrCA1153Ee', 'http://docs.google.com/uc?export=open&id=18OAoN9iF1_trDDtJDzAQzkBrCA1153Ee', 'http://docs.google.com/uc?export=open&id=18OAoN9iF1_trDDtJDzAQzkBrCA1153Ee', 'http://docs.google.com/uc?export=open&id=18OAoN9iF1_trDDtJDzAQzkBrCA1153Ee'], 'qtype': 'block', 'answers': [{'A': 'living abroad in the 1960s', 'B': 'something he read as a child', 'C': 'a television film about Africa'}, {'A': 'had no fixed expectations.', 'B': 'made a programme about life on the river.', 'C': 'became more interested in filming old buildings.'}, {'A': 'more relaxed.', 'B': 'more creative.', 'C': 'more organised.'}, {'A': 'relax by the sea.', 'B': 'stay in comfortable surroundings.', 'C': 'travel for a particular reason.'}, {'A': 'risking their health.', 'B': 'wasting opportunities.', 'C': 'lacking entertainment.'}], 'correctAnswer': ['B', 'A', 'C', 'C', 'B']}, {'id': 'ENGLM1028', 'question': 'Sarah earns enough money from her painting to', 'audio': 'http://docs.google.com/uc?export=open&id=1Imf6vLPyXeNC8HnZnHPPFPNtUqHz6p6A', 'qtype': 'text', 'answers': {'A': 'give up her computing job.', 'B': 'pay for her flat and car.', 'C': "pay for her artist's materials."}, 'correctAnswer': 'C'}, {'id': 'ENGLM1107', 'question': 'You overhear a man talking about the competitions that he and his wife enter. What did his favourite prize allow him to do?', 'audio': 'http://docs.google.com/uc?export=open&id=1g9HTzXDufgJuM5LbXWJUzG-kpd7tqVgd', 'qtype': 'text', 'answers': {'A': 'go on an interesting flight', 'B': 'stay in a luxurious place', 'C': 'own a prestigious car'}, 'correctAnswer': 'B'}, {'id': 'ENGLM1034', 'question': 'The presenter likes  Cooking for One  because', 'audio': 'http://docs.google.com/uc?export=open&id=1mrAbPjQ1dIrleISL-YIBbF40uyGFJzde', 'qtype': 'text', 'answers': {'A': 'it taught her to cook Italian food.', 'B': 'she always likes cook books.', 'C': 'it contains only easy meals.'}, 'correctAnswer': 'D'}, {'id': 'ENGLM1027', 'question': 'What does Frank say about the ship called  The Seabird?', 'audio': 'http://docs.google.com/uc?export=open&id=14pcN0FRbiuaQ7_LIacIUg_G1C5OP_Cca', 'qtype': 'text', 'answers': {'A': 'It was built in 1859.', 'B': 'It sank in a storm.', 'C': 'It was badly made.'}, 'correctAnswer': 'C'}, {'id': 'ENGGG417', 'question': ['Mr Simpson became a zoo owner because he wanted to', 'He only employs people who', 'Keepers must record animal behaviour in order to ', 'To keep animals in good condition keepers must', 'In the first few months, keepers must work in'], 'audio': ['http://docs.google.com/uc?export=open&id=1iy0NEGTn6FoeUIFiN8iWI63P-xCbUC38', 'http://docs.google.com/uc?export=open&id=1iy0NEGTn6FoeUIFiN8iWI63P-xCbUC38', 'http://docs.google.com/uc?export=open&id=1iy0NEGTn6FoeUIFiN8iWI63P-xCbUC38', 'http://docs.google.com/uc?export=open&id=1iy0NEGTn6FoeUIFiN8iWI63P-xCbUC38', 'http://docs.google.com/uc?export=open&id=1iy0NEGTn6FoeUIFiN8iWI63P-xCbUC38'], 'qtype': 'block', 'answers': [{'A': 'travel more extensively.', 'B': 'protect wild animals.', 'C': 'share his love of animals.'}, {'A': 'want a permanent job.', 'B': 'have a relevant degree.', 'C': nan}, {'A': 'draw attention to changes.', 'B': 'keep the public informed.', 'C': 'write press reports.'}, {'A': 'feed them regularly.', 'B': 'vary their routine.', 'C': 'let them move around.'}, {'A': 'all of the sections.', 'B': 'one of the sections.', 'C': 'most of the sections.'}], 'correctAnswer': ['C', 'A', 'A', 'B', 'C']}, {'id': 'ENGLM1024', 'question': "On her first flight alone, Jane didn't", 'audio': 'http://docs.google.com/uc?export=open&id=1R8fSxwHw1JlYY5qjv3zzm1TLcHk-dfE3', 'qtype': 'text', 'answers': {'A': 'remember which way to go.', 'B': 'recognise the white house she was looking for.', 'C': 'notice another plane close to her.'}, 'correctAnswer': 'B'}, {'id': 'ENGLM1014', 'question': 'On weekdays, a visit to the park costs', 'audio': 'http://docs.google.com/uc?export=open&id=1ZakC-TponzuB8_dQDCoDQkWjK-QnAlvU', 'qtype': 'text', 'answers': {'A': '$12.', 'B': '$13.', 'C': '$16.'}, 'correctAnswer': 'A'}, {'id': 'ENGLM1104', 'question': 'You hear a man talking on the phone about buying a house. What is the purpose of his call?', 'audio': 'http://docs.google.com/uc?export=open&id=17OG64tgRX6NrgJnbQ1zuRm5PddHK-oYw', 'qtype': 'text', 'answers': {'A': 'to apologise', 'B': 'to complain', 'C': 'to obtain information'}, 'correctAnswer': 'C'}, {'id': 'ENGGG457', 'question': ["Luke's dad says he prefers to travel in a van because", 'What is Luke most looking forward to?', 'What has Luke done in preparation for the trip?', 'How will Luke continue his studies during the trip?', 'What will Luke miss most of all?'], 'audio': ['http://docs.google.com/uc?export=open&id=1yhK-_Qix2FCI6ZOHpt15QKBriKhfiH5a', 'http://docs.google.com/uc?export=open&id=1yhK-_Qix2FCI6ZOHpt15QKBriKhfiH5a', 'http://docs.google.com/uc?export=open&id=1yhK-_Qix2FCI6ZOHpt15QKBriKhfiH5a', 'http://docs.google.com/uc?export=open&id=1yhK-_Qix2FCI6ZOHpt15QKBriKhfiH5a', 'http://docs.google.com/uc?export=open&id=1yhK-_Qix2FCI6ZOHpt15QKBriKhfiH5a'], 'qtype': 'block', 'answers': [{'A': 'it will give them a better experience of places.', 'B': 'it will not damage the environment', 'C': 'it will give them independence.'}, {'A': 'watching wildlife', 'B': 'doing a watersport', 'C': 'learning about new cultures'}, {'A': 'He has saved his pocket money.', 'B': 'He has done a history project.', 'C': 'He has helped research the cost of travel.'}, {'A': 'He has helped research the cost of travel.', 'B': 'His teachers will contact him online.', 'C': 'He will be taught by his mother.'}, {'A': 'contact with his classmates', 'B': 'being on his own', 'C': 'going to football matches'}], 'correctAnswer': ['A', 'B', 'C', 'C', 'B']}, {'id': 'ENGLM1035', 'question': 'What does the woman think is wrong with  Holidays in Europe?', 'audio': 'http://docs.google.com/uc?export=open&id=12ilNxrhukMpRzw0tJ1kRKxt836gLtnXX', 'qtype': 'text', 'answers': {'A': 'It leaves out well-known places.', 'B': 'The maps are not very good.', 'C': 'It is boring to read.'}, 'correctAnswer': 'B'}, 
+    {'id': 'ENGLG1171', 'question': 'How will the man book tickets for the show?', 'audio': 'http://docs.google.com/uc?export=open&id=1eJxW96CZI0xGVh-GLP_OzUB0-Z6wSy2v', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1cslGbi62WEpHpP7hczwZTjUB1rUbAjCs', 'B': 'https://drive.google.com/uc?export=view&id=1aNYYpDtNxCg779Bz8PtfGX6eKYRCsy8l', 'C': 'https://drive.google.com/uc?export=view&id=1fIS_o3mWx-gqp6Av-01QkqT69ieV716Q'}, 'correctAnswer': 'B'}, {'id': 'ENGGG449', 'question': ["In Norway, Kate's friends helped her", 'During the flight to Denmark, Kate', 'On Monday, Kate was worried because ', 'While staying at her friendsâ\x80\x99 farm, Kate', 'Kate had to arrive at the flying club in England'], 'audio': ['http://docs.google.com/uc?export=open&id=1W9KSLtXrNVop50M8xntuRqafCIgJ57Ln', 'http://docs.google.com/uc?export=open&id=1W9KSLtXrNVop50M8xntuRqafCIgJ57Ln', 'http://docs.google.com/uc?export=open&id=1W9KSLtXrNVop50M8xntuRqafCIgJ57Ln', 'http://docs.google.com/uc?export=open&id=1W9KSLtXrNVop50M8xntuRqafCIgJ57Ln', 'http://docs.google.com/uc?export=open&id=1W9KSLtXrNVop50M8xntuRqafCIgJ57Ln'], 'qtype': 'block', 'answers': [{'A': 'plan the route on the map.', 'B': 'cook a meal before her flight.', 'C': 'put on the clothes she would fly in.'}, {'A': 'felt very tired.', 'B': 'felt very tired.', 'C': 'felt very tired.'}, {'A': 'she had to land unexpectedly.', 'B': 'she had to land unexpectedly.', 'C': 'a wheel was not working properly.'}, {'A': 'enjoyed hearing the birds sing.', 'B': 'got annoyed about losing flying time', 'C': 'made sure she got some extra sleep.'}, {'A': 'enjoyed hearing the birds sing.', 'B': 'enjoyed hearing the birds sing.', 'C': 'before it got dark.'}], 'correctAnswer': ['C', 'B', 'C', 'A', 'C']}, {'id': 'ENGLM1096', 'question': 'What should people do at the moment?   ', 'audio': 'http://docs.google.com/uc?export=open&id=1DUuO4noCl2ru1q3J_4-T6f1akLextKVI', 'qtype': 'text', 'answers': {'A': 'keep away from the area', 'B': 'help clean the beach', 'C': 'save some of the affected birds'}, 'correctAnswer': 'A'}, {'id': 'ENGLM1021', 'question': 'For his most recent television programme, John', 'audio': 'http://docs.google.com/uc?export=open&id=1Se0oYejw9HTrpjt7shUq6ZQdrEpusv1P', 'qtype': 'text', 'answers': {'A': 'made a trip around the world.', 'B': 'drove from the North to the South Pole.', 'C': 'filmed relaxing beach holidays.'}, 'correctAnswer': 'D'}, {'id': 'ENGLM1098', 'question': 'You turn on the radio and hear part of a music programme. What do you learn about the four people mentioned?', 'audio': 'http://docs.google.com/uc?export=open&id=1c6XNs5_nRQBppB21kNbKWoAiD0r-IRU9', 'qtype': 'text', 'answers': {'A': 'They met working for television.', 'B': 'Their CD is well known.', 'C': 'They have recently formed a group.'}, 'correctAnswer': 'C'}, {'id': 'ENGLM1025', 'question': 'The first old ship which Frank found was', 'audio': 'http://docs.google.com/uc?export=open&id=1dVpGtn7h5ZB1ILm_fzlxuIK4vBJ_6QQQ', 'qtype': 'text', 'answers': {'A': 'covered by rocks.', 'B': 'older than he first thought.', 'C': 'easy to find.'}, 'correctAnswer': 'C'}, {'id': 'ENGLM1023', 'question': 'What happened to Jane on her test flight?', 'audio': 'http://docs.google.com/uc?export=open&id=1dVpGtn7h5ZB1ILm_fzlxuIK4vBJ_6QQQ', 'qtype': 'text', 'answers': {'A': 'She almost hit something.', 'B': 'She argued with the teacher.', 'C': 'She damaged the plane.'}, 'correctAnswer': 'A'}, {'id': 'ENGGG427', 'question': ['According to Colin, the quality of YHA accommodation ', 'Colin says that the YHA decides what changes to make by', 'Colin says that in the early years of the YHA,', 'What does Colin say about YHA regulations?', 'Colin fears that in the future there may be'], 'audio': ['http://docs.google.com/uc?export=open&id=1dVpGtn7h5ZB1ILm_fzlxuIK4vBJ_6QQQ', 'http://docs.google.com/uc?export=open&id=1dVpGtn7h5ZB1ILm_fzlxuIK4vBJ_6QQQ', 'http://docs.google.com/uc?export=open&id=1dVpGtn7h5ZB1ILm_fzlxuIK4vBJ_6QQQ', 'http://docs.google.com/uc?export=open&id=1dVpGtn7h5ZB1ILm_fzlxuIK4vBJ_6QQQ', 'http://docs.google.com/uc?export=open&id=1dVpGtn7h5ZB1ILm_fzlxuIK4vBJ_6QQQ'], 'qtype': 'block', 'answers': [{'A': 'is better than most people say it is.', 'B': 'should generally be improved', 'C': 'has risen over the years.'}, {'A': 'asking for the views of customers.', 'B': 'looking at other organisations.', 'C': 'trying out different ideas.'}, {'A': 'parents generally had lower incomes.', 'B': 'the typical visitors were interested in the countryside.', 'C': 'it was more common for young people to travel without parents.'}, {'A': 'They used to be stricter.', 'B': 'Most of them have not changed.', 'C': 'He disagrees with some of them.'}, {'A': 'too many hostels', 'B': 'less demands for hostels', 'C': 'more hostels needed in certain areas'}], 'correctAnswer': ['C', 'A', 'C', 'A', 'A']}, {'id': 'ENGLM1097', 'question': 'You overhear a woman talking about some news she has just received. How does she feel about the news?', 'audio': 'http://docs.google.com/uc?export=open&id=1LiqnXmRFw4FGJR--rCsQm8bpyX1iy6lG', 'qtype': 'text', 'answers': {'A': 'confused', 'B': 'suprised', 'C': 'delighted'}, 'correctAnswer': 'C'}, {'id': 'ENGLM1102', 'question': 'You hear two people talking. How does the woman feel?', 'audio': 'http://docs.google.com/uc?export=open&id=1szPPnMmSrslDud5ovlHue0SxSBnAmFum', 'qtype': 'text', 'answers': {'A': 'surprised', 'B': 'satisfied', 'C': 'relieved'}, 'correctAnswer': 'C'}, {'id': 'ENGLM1030', 'question': "How is the station's gym different from other city gyms?", 'audio': 'http://docs.google.com/uc?export=open&id=154M_Eqx-wymTXjiDPb-Y9RT-i6Uz4wNx', 'qtype': 'text', 'answers': {'A': 'It is open for more hours.', 'B': 'It is not so expensive.', 'C': 'It is much larger.'}, 'correctAnswer': 'B'}, {'id': 'ENGLG1176', 'question': 'Where is Angela now?', 'audio': 'http://docs.google.com/uc?export=open&id=1TUSi3cjivcDGtQWdWTen7nX5KrYjKz9V', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1s398wWo1N2xJ_EEwSNUKdXA7lwx8weyq', 'B': 'https://drive.google.com/uc?export=view&id=1i7sWHVzJEaD92UgxpTVXnHGLd6-yrnS_', 'C': 'https://drive.google.com/uc?export=view&id=1nIhQzNGkGM8Mc0MhbfaA3MDFUrIvHtie'}, 'correctAnswer': 'A'}, {'id': 'ENGGG419', 'question': ['Where is the town of Swanton located?', 'What does Jack say about entertainment in Swanton?', 'Jack is worried about the environment of Swanton because', 'What does Jack say about the way Swanton has changed?', 'Jack is positive about the future of Swanton because'], 'audio': ['http://docs.google.com/uc?export=open&id=1aB6AIdukzCG3MowHuko-CG2Yp3A_chio', 'http://docs.google.com/uc?export=open&id=1aB6AIdukzCG3MowHuko-CG2Yp3A_chio', 'http://docs.google.com/uc?export=open&id=1aB6AIdukzCG3MowHuko-CG2Yp3A_chio', 'http://docs.google.com/uc?export=open&id=1aB6AIdukzCG3MowHuko-CG2Yp3A_chio', 'http://docs.google.com/uc?export=open&id=1aB6AIdukzCG3MowHuko-CG2Yp3A_chio'], 'qtype': 'block', 'answers': [{'A': 'near the sea', 'B': 'by a lake', 'C': 'on a hill'}, {'A': 'A music festival takes place in the town.', 'B': 'Its football club has done well this year.', 'C': 'An arts centre has recently opened.'}, {'A': 'the water in the river is dirty.', 'B': 'there are few wild birds around today.', 'C': 'pollution has destroyed the plants in one area.'}, {'A': 'He preferred the town when it was smaller.', 'B': 'He thinks it is a more interesting place.', 'C': 'He is sorry that there are fewer jobs available.'}, {'A': 'there is a successful new shopping centre.', 'B': 'there will soon be a new airport.', 'C': 'a new university is opening.'}], 'correctAnswer': ['A', 'C', 'B', 'B', 'A']}, {'id': 'ENGLG1173', 'question': "Which day is Jimmy's guitar lesson?", 'audio': 'http://docs.google.com/uc?export=open&id=1sZT1lbDKHS1X0gPbNSMMzj2CUKLWQ5yi', 'qtype': 'text', 'answers': {'A': 'Thursday', 'B': 'Friday', 'C': 'Saturday'}, 'correctAnswer': 'A'}, {'id': 'ENGLG1174', 'question': 'Who gave the man the CD for his birthday?', 'audio': 'http://docs.google.com/uc?export=open&id=12wvBX3jjf0ji0WXBTBUdgtbwae9bJnnC', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1Fc4ypwu5oHNo86ZFj2RwI429urtmJWKQ', 'B': 'https://drive.google.com/uc?export=view&id=1fmPN1zj5edWIt4TxlcyVeisUZyH6akql', 'C': 'https://drive.google.com/uc?export=view&id=1tFimVelpQV_DGsgxWSlegBMFvNLthXoG'}, 'correctAnswer': 'B'}, {'id': 'ENGLM1100', 'question': 'You hear a scientist talking about a slimming diet which is used by people who\r\nwant to lose weight. What does she say about the diet?', 'audio': 'http://docs.google.com/uc?export=open&id=1tPiJiVRn8IOGXZg1SAHaA3-mtwNey0Hb', 'qtype': 'text', 'answers': {'A': 'It can have useful results.', 'B': 'It may have harmful effects.', 'C': 'It might get scientific approval.'}, 'correctAnswer': 'A'}, {'id': 'ENGGG456', 'question': ['What does Rachel say about her job title?', 'What is the most common reason for the gallery not exhibiting an artistâ\x80\x99s work?', 'When can phone calls from artists be difficult for Rachel?', 'Why does Rachel include a commentary in the catalogue?', 'What does Rachel say about administrative work?'], 'audio': ['http://docs.google.com/uc?export=open&id=1OxsRLtuPDo8JrRfZvj-Mj-SRP8IVNgL-', 'http://docs.google.com/uc?export=open&id=1OxsRLtuPDo8JrRfZvj-Mj-SRP8IVNgL-', 'http://docs.google.com/uc?export=open&id=1OxsRLtuPDo8JrRfZvj-Mj-SRP8IVNgL-', 'http://docs.google.com/uc?export=open&id=1OxsRLtuPDo8JrRfZvj-Mj-SRP8IVNgL-', 'http://docs.google.com/uc?export=open&id=1OxsRLtuPDo8JrRfZvj-Mj-SRP8IVNgL-'], 'qtype': 'block', 'answers': [{'A': 'It makes her feel more important than she is.', 'B': 'It gives people the wrong idea about her work.', 'C': 'It is appropriate for most of the work she does.'}, {'A': 'The subject matter is unsuitable.', 'B': 'It is not of a high enough quality.', 'C': "The gallery manager doesn't like it."}, {'A': "when their work doesn't sell", 'B': 
+    'when they donâ\x80\x99t receive payments', 'C': 'when their work is not accepted'}, {'A': 'It gives background information about the artist.', 'B': 'It encourages people to buy paintings over the phone', 'C': 'It tells people what experts think of the work.'}, {'A': 'She is able to leave a lot of it to others.', 'B': 'She would like to have an assistant to help with it', 'C': 'She finds it hard to get it all organised.'}], 'correctAnswer': ['C', 'B', 'C', 'A', 'A']}, {'id': 'ENGLM1099', 'question': 'You overhear two people talking in a restaurant. Where has the woman just come from?', 'audio': 'http://docs.google.com/uc?export=open&id=1jRZj-rAKFKeL3I6BAF-x1Sq_56Os3jH_', 'qtype': 'text', 'answers': {'A': 'a supermarket', 'B': 'a hospital', 'C': 'a football match'}, 'correctAnswer': 'A'}, {'id': 'ENGGG453', 'question': ['When Pete applied to be a guest cosmonaut, he', 'When Pete was at university, he', 'What does Pete say about the jobs he took after university?', 'What does Pete think about space exploration?', 'What does Pete feel about life on other planets?'], 'audio': ['http://docs.google.com/uc?export=open&id=1T_z9XpGsitsjJM_vjBdWFFG7JmX19uK4', 'http://docs.google.com/uc?export=open&id=1T_z9XpGsitsjJM_vjBdWFFG7JmX19uK4', 'http://docs.google.com/uc?export=open&id=1T_z9XpGsitsjJM_vjBdWFFG7JmX19uK4', 'http://docs.google.com/uc?export=open&id=1T_z9XpGsitsjJM_vjBdWFFG7JmX19uK4', 'http://docs.google.com/uc?export=open&id=1T_z9XpGsitsjJM_vjBdWFFG7JmX19uK4'], 'qtype': 'block', 'answers': [{'A': 'pretended he had the right qualifications.', 'B': 'had confidence in his physical abilities.', 'C': 'lacked a necessary skill.'}, {'A': 'found some subjects difficult.', 'B': 'didnâ\x80\x99t have to worry about money.', 'C': 'got a part-time job.'}, {'A': 'They gave him valuable work experience.', 'B': 'They made him decide to take up writing as a career.', 'C': 'They enabled him to save up money for books.'}, {'A': 'There are advantages despite the costs.', 'B': 'Using robots will make it happen sooner.', 'C': 'Photography will benefit from space research.'}, {'A': 'He is relieved that none has been found.', 'B': 'He accepts that it might not exist.', 'C': 'He is hopeful that we will continue looking.'}], 'correctAnswer': ['C', 'B', 'B', 'A', 'B']}, {'id': 'ENGLM371', 'question': 'At the beginning of a radio play, you hear a girl leaving a message for her friend. Where is the speaker?', 'audio': 'http://docs.google.com/uc?export=open&id=1iM6FmZqY5Ghjvj91WMj2qjAWOrVOsBtv', 'qtype': 'text', 'answers': {'A': 'in a café', 'B': 'in a car', 'C': 'at home'}, 'correctAnswer': 'B'}, {'id': 'ENGLG1177', 'question': 'Where will the couple meet?', 'audio': 'http://docs.google.com/uc?export=open&id=1ENm36pnMlGlmaHyB-iJKRaarbBYMtpm0', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1AIlHkYzHGEwziE5_vQnfYORJZw4iMGBM', 'B': 'https://drive.google.com/uc?export=view&id=1DnMxEf4hc-XRZckVwqYpMuVmwdVumBW5', 'C': 'https://drive.google.com/uc?export=view&id=15QjfmlBeI8K8y8bgw9mRpHVVFCm2a-7i'}, 'correctAnswer': 'A'}, {'id': 'ENGLG1175', 'question': 'Where is the girlâ\x80\x99s purse?', 'audio': 'http://docs.google.com/uc?export=open&id=1-MXAPjpjK6mWSMkjD18ry3_SSQ6rZkdy', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=12P0vBnqN8suilKo72HYs6IXl-RyUbNmy', 'B': 'https://drive.google.com/uc?export=view&id=1fdM3Er2OHwY54G9q_Mc6ZDToYEpGx6GS', 'C': 'https://drive.google.com/uc?export=view&id=1HgwSX9Nt7nqyr3X29dqP2KvQb0a8jmf2'}, 'correctAnswer': 'C'}, {'id': 'ENGGG425', 'question': ['Lucy enjoyed building a tree-house because it', 'What fascinated Lucy about the historical phone boxes?', 'At college, Lucy designed small buildings so that they', 'Lucy got the idea for a folding market stall', 'What did Lucy like best about her award-winning design?'], 'audio': ['http://docs.google.com/uc?export=open&id=1SN26b6aNjbtwmGr31-42hITd3-FJhKff', 'http://docs.google.com/uc?export=open&id=1SN26b6aNjbtwmGr31-42hITd3-FJhKff', 'http://docs.google.com/uc?export=open&id=1SN26b6aNjbtwmGr31-42hITd3-FJhKff', 'http://docs.google.com/uc?export=open&id=1SN26b6aNjbtwmGr31-42hITd3-FJhKff', 'http://docs.google.com/uc?export=open&id=1SN26b6aNjbtwmGr31-42hITd3-FJhKff'], 'qtype': 'block', 'answers': [{'A': 'gave her children somewhere to play.', 'B': 'presented an interesting design problem', 'C': 'demonstrated the type of work she does.'}, {'A': 'their international character', 'B': 'their luxurious interiors', 'C': 'their range of styles'}, {'A': 'could be assembled in a shorter time.', 'B': 'would comply better with safety rules.', 'C': 'would have a wider range of uses.'}, {'A': 'from her parents.', 'B': 'from travelling salesmen', 'C': 'while she was at a trade fair.'}, {'A': 'the shape', 'B': 'the display space', 'C': 'the decoration'}], 'correctAnswer': ['B', 'C', 'A', 'D', 'C']}, {'id': 'ENGLM1088', 'question': 'What type of information is the radio reporter giving?', 'audio': 'http://docs.google.com/uc?export=open&id=1GF3jOeGzyKHbaHjts2PEmQNAnHicw7R3', 'qtype': 'text', 'answers': {'A': 'a travel announcement', 'B': 'a weather forecast', 'C': 'an accident report'}, 'correctAnswer': 'A'}, {'id': 'ENGLM1105', 'question': 'On the news you hear a story about a cat. Where was the cat found?', 'audio': 'http://docs.google.com/uc?export=open&id=11k03AFSHg9Y_AxXeoc_wGwqUtaF3WeT-', 'qtype': 'text', 'answers': {'A': 'in a train carriage', 'B': 'on the railway lines', 'C': 'on a station platform'}, 'correctAnswer': 'A'}, {'id': 'ENGGG452', 'question': ['According to Seth, what mistake do people who are going to camp at the festival frequently make?', 'Which problem at the festival has now been solved?', 'Seth believes his festival is more suitable for children than other similar festivals because', 'Seth predicts that the bands attracting most people this year will be those which', 'According to Seth, why should people go to a big live festival?'], 'audio': ['http://docs.google.com/uc?export=open&id=1tC2ZSi5-lBmhqDEwud1knK56bPB3ToaX', 'http://docs.google.com/uc?export=open&id=1tC2ZSi5-lBmhqDEwud1knK56bPB3ToaX', 'http://docs.google.com/uc?export=open&id=1tC2ZSi5-lBmhqDEwud1knK56bPB3ToaX', 'http://docs.google.com/uc?export=open&id=1tC2ZSi5-lBmhqDEwud1knK56bPB3ToaX', 'http://docs.google.com/uc?export=open&id=1tC2ZSi5-lBmhqDEwud1knK56bPB3ToaX'], 'qtype': 'block', 'answers': [{'A': 'They forget how cold it can be at night.', 'B': 'They take nothing to sleep on.', 'C': 'They have no form of light.'}, {'A': 'the space provided for people watching the main band', 'B': 'the capacity of the sound system', 'C': 'the location of the car parks'}, {'A': 'there are special family cafes with healthy food.', 'B': 'specific entertainment is organised for them.', 'C': 'there is a separate campsite for families.'}, {'A': 'encourage audience participation.', 'B': 'have the best special effects.', 'C': 'are rarely seen at live events.'}, {'A': 'It will leave a lasting impression on them.', 'B': 'The audiences are as interesting as the events.', 'C': 'They will see acts not covered by the media.'}], 'correctAnswer': ['B', 'D', 'D', 'C', 'A']}, {'id': 'ENGLM1106', 'question': 'You turn on the radio and hear a man speaking. What are you listening to?', 'audio': 'http://docs.google.com/uc?export=open&id=1x7c7yNbPbuxV4HE7HCDrdf-deg73XI8_', 'qtype': 'text', 'answers': {'A': 'a history programme', 'B': 'a science-fiction story', 'C': 'an advertisement'}, 'correctAnswer': 'C'}, {'id': 'ENGLM1101', 'question': 'You hear a teenage girl talking about her hobby. What is she talking about?', 'audio': 'http://docs.google.com/uc?export=open&id=15tMWt2fmtU0OiZpcHVMg7wYWRrLc0pGp', 'qtype': 'text', 'answers': {'A': 'a computer game', 'B': 'a musical instrument', 'C': 'a piece of sports equipment'}, 'correctAnswer': 'B'}, {'id': 'ENGGG455', 'question': ['What does Madeleine say about having to adopt a professional name?', 'How did having a part in a musical help Madeleine?', 'Madeleine thinks that stars who seem to be behaving badly', 'Madeleine thinks that she hasnâ\x80\x99t become a big star because she', 'Compared to her earlier work, Madeleine thinks that her latest songs'], 'audio': ['http://docs.google.com/uc?export=open&id=1Oicvtue13a_YkcF6pok3KuCVBjmvWxG-', 'http://docs.google.com/uc?export=open&id=1Oicvtue13a_YkcF6pok3KuCVBjmvWxG-', 'http://docs.google.com/uc?export=open&id=1Oicvtue13a_YkcF6pok3KuCVBjmvWxG-', 'http://docs.google.com/uc?export=open&id=1Oicvtue13a_YkcF6pok3KuCVBjmvWxG-', 'http://docs.google.com/uc?export=open&id=1Oicvtue13a_YkcF6pok3KuCVBjmvWxG-'], 'qtype': 'block', 'answers': [{'A': 'The disadvantages have outweighed the benefits', 'B': 'It met with some resistance from some people.', 'C': 'It has taken her a long time to get used to it.'}, {'A': 'It led to further offers of work on stage.', 'B': 'It provided inspiration for her songwriting', 'C': 'It enabled her to make some useful contacts.'}, {'A': 'might just be expressing their creativity.', 'B': 'may be unaware the public doesnâ\x80\x99t approve.', 'C': 'may just be keen to get media exposure.'}, {'A': 'is too honest to push her way to the top.', 'B': 'has been too ready to listen to other people.', 'C': 'has never had enough say in her own career.'}, {'A': 'reflect her pop music roots more.', 'B': 'reveal more about her as a person', 'C': 'have more carefully written lyrics.'}], 'correctAnswer': ['B', 'D', 'A', 'D', 'B']}] ;
+    
+    var i = 0;
+
+    //shuffle the questions
+    function shuffle(array){
+        var currentIndex = array.length,  randomIndex;
+
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+        return array;
+        }
+
+    // Functions
+    function buildQuiz(){
+
+        //start by shuffling the question order and resetting playback speed
+        shuffle(myQuestions);
+
+        // variable to store the HTML output
+        const output = [];
+
+        // for each question...
+        for(var i = 0; i < myQuestions.length; i++){
+            const answers = [];
+
+            if(myQuestions[i].qtype == "block"){
+                for(j = 0; j < 5; j++){
+                    const sub_answers = [];
+                    for(letter in myQuestions[i].answers[j]){
+                        sub_answers.push(
+                        `<label>
+                        <input type="radio" id="funky${j}" name="question${i}_${j}" value="${letter}">
+                        ${letter} : ${myQuestions[i].answers[j][letter]}
+                        </label>`
+                    )
+                    }
+                answers.push(sub_answers)
+                }
+            // add this question and its answers to the output
+            output.push(
+            `<div class="slide">
+
+                <div class="header"> Please answer the 5 questions below: </div>
+                <br>
+                <div class="speedcontrolcontainer">
+                    <audio src=${myQuestions[i].audio[0]} controls></audio>
+                    <div>
+                        <label for="pbrate">Speed:</label>
+                        <input type="range" id="pbrate" min=0.5 max=1.0 value=1 step=0.1>
+                        <span></span>
+                    </div>
+                </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[0]}</div>
+                <div class="answers"> ${answers[0].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[1]}</div>
+                <div class="answers"> ${answers[1].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[2]}</div>
+                <div class="answers"> ${answers[2].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[3]}</div>
+                <div class="answers"> ${answers[3].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[4]}</div>
+                <div class="answers"> ${answers[4].join("")} </div>
+                <br>
+                <button id="submit${i}">Mark question</button>
+                <button id="next${i}" hidden>Next question</button>
+                <br><br><br>
+            </div>`
+            )
+            } else if(myQuestions[i].qtype == "image"){
+                for(letter in myQuestions[i].answers){
+                    answers.push(
+                    `<label>
+                    <input type="radio" id="funky" name="question${i}" value="${letter}">
+                    ${letter} : <img src=${myQuestions[i].answers[letter]} width=30% height=auto>
+                    </label>`
+                )
+                }            
+                // add this question and its answers to the output
+                output.push(
+                `<div class="slide">
+                    <div class="header">${myQuestions[i].question}</div>
+                    <br>
+                    <div class="speedcontrolcontainer">
+                        <audio src=${myQuestions[i].audio} controls></audio>
+                        <div>
+                            <label for="pbrate">Speed:</label>
+                            <input type="range" id="pbrate" min=0.5 max=1.0 value=1 step=0.1>
+                            <span></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="answers"> ${answers.join("")} </div>
+                    <br>
+                    <button id="submit${i}">Mark question</button>
+                    <button id="next${i}" hidden>Next question</button>
+                    <br>
+                </div>`
+                )
+            } else{
+                for(letter in myQuestions[i].answers){
+                    answers.push(
+                    `<label>
+                    <input type="radio" id="funky" name="question${i}" value="${letter}">
+                    ${letter} : ${myQuestions[i].answers[letter]}
+                    </label>`
+                )
+                }
+                // add this question and its answers to the output
+                output.push(
+                `<div class="slide">
+                    <div class="header">${myQuestions[i].question}</div>
+                    <br>
+                    <div class="speedcontrolcontainer">
+                        <audio src=${myQuestions[i].audio} controls></audio>
+                        <div>
+                            <label for="pbrate">Speed:</label>
+                            <input type="range" id="pbrate" min=0.5 max=1.0 value=1 step=0.1>
+                            <span></span>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="answers"> ${answers.join("")} </div>
+                    <br>
+                    <button id="submit${i}">Mark question</button>
+                    <button id="next${i}" hidden>Next question</button>
+                    <br>
+                </div>`
+                )
+            }
+        }
+        quizContainer.innerHTML = output.join('');
+        const audio = document.querySelector('.speedcontrolcontainer  audio');
+        const playbackrate = document.querySelector('.speedcontrolcontainer input');
+        const display = document.querySelector('.speedcontrolcontainer span');
+        const displayvalue = val => {
+        return parseInt(val * 100, 10) + '%'
+        }
+        if (window.localStorage.pbspeed) {
+        audio.playbackRate = window.localStorage.pbspeed;
+        playbackrate.value = window.localStorage.pbspeed;
+        }
+        display.innerText = displayvalue(audio.playbackRate);
+        playbackrate.addEventListener('change', e => {
+        audio.playbackRate = playbackrate.value;
+        display.innerText = displayvalue(playbackrate.value);
+        window.localStorage.pbspeed = playbackrate.value;
+        });
+    }
+
+    function showResults(){
+
+        // gather answer containers from our quiz
+        const answerContainers = quizContainer.querySelectorAll('.answers');
+
+        if(myQuestions[i].qtype == "block"){
+
+            const answerList = [];
+            //iterate through all 5 questions in the block
+            for(j = 0; j < 5; j++){
+                var block = document.getElementsByName(`question${i}_${j}`);
+                var userAnswer;
+                
+                if(!block[0].checked && !block[1].checked && !block[2].checked){
+                    answerList.push("NaN")
+                }
+                if(block[0].checked){
+                    userAnswer = "A"
+                    answerList.push(userAnswer)
+                }
+                if(block[1].checked){
+                    userAnswer = "B"
+                    answerList.push(userAnswer)
+                }
+                if(block[2].checked){
+                    userAnswer = "C"
+                    answerList.push(userAnswer)
+                }
+            }
+
+            var counter = 0;
+            for(j = 0; j < 5; j++){
+                if(answerList[j] == myQuestions[i].correctAnswer[j]){
+                    counter ++;
+                }
+            }
+            if(counter > 2){
+                submitButton.innerText = `You scored ${counter} out of 5`
+                submitButton.style.backgroundColor = "green"
+                console.log(myQuestions[i].id, "correct")
+            } else{
+                submitButton.innerText = `You scored ${counter} out of 5`
+                submitButton.style.backgroundColor = "red"
+                console.log(myQuestions[i].id, "incorrect")
+            }
+
+        } else{
+            // find selected answer
+            var radios = document.getElementsByName(`question${i}`);
+            var userAnswer;
+
+            if(radios[0].checked){
+                userAnswer = "A"
+            }
+            if(radios[1].checked){
+                userAnswer = "B"
+            }
+            if(radios[2].checked){
+                userAnswer = "C"
+            }
+            // if answer is correct
+            if(userAnswer === myQuestions[i].correctAnswer){
+                // color the answers green
+                submitButton.innerText = "CORRECT"
+                submitButton.style.backgroundColor = "green"
+                console.log(myQuestions[i].id, "correct")
+            }
+            // if answer is wrong or blank
+            else{
+                // color the answers red
+                submitButton.innerText = "INCORRECT"
+                submitButton.style.backgroundColor = "red"
+                console.log(myQuestions[i].id, "incorrect")
+            }
+        }
+        submitButton.disabled = true;
+        nextButton.hidden = false;
+        }
+
+    function showBlockResults(){
+        const answerContainers = quizContainer.querySelectorAll('.answers');
+    }
+    
+    function showSlide(n) {
+        submitButton = document.getElementById(`submit${i}`);
+        submitButton.addEventListener('click', showResults);
+
+        nextButton = document.getElementById(`next${i}`);
+        nextButton.addEventListener('click', showNextSlide);
+
+        slides[currentSlide].classList.remove('active-slide');
+        slides[n].classList.add('active-slide');
+        currentSlide = n;
+
+        if(currentSlide === myQuestions.length-1){
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+        } else{
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'inline-block';
+        }
+    }
+
+    function showNextSlide() {
+        i++;
+        showSlide(currentSlide + 1);
+    }
+
+    // Kick things off
+    buildQuiz();
+
+    //variables
+    const resultsContainer = document.getElementById('results');
+
+    // Pagination
+    //const nextButton = document.getElementById("next");
+    const slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    // Show the first slide
+    var submitButton;
+    showSlide(currentSlide);
+
+    })();
+</script>
+{% endblock content %}

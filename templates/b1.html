@@ -1,0 +1,304 @@
+{% extends "layout_logged_in.html" %}
+{% block content %}
+<br><br>
+
+<div class="quiz-container">
+    <div id="quiz"></div>
+</div>
+<br>
+
+<script>
+    (function(){
+    
+    // Variables
+    const quizContainer = document.getElementById('quiz');
+    const myQuestions = [{'id': 'ENGLG1123', 'question': 'Which man is the English teacher?', 'audio': 'http://docs.google.com/uc?export=open&id=1Ajej02Bw0mPGS9IbozVRYSn7YGx6xxdV', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1tlXchuwSyu4rIMnWDaTEo683Yk4WNS44', 'B': 'https://drive.google.com/uc?export=view&id=1KgvY7XPUsYeWnnTUvUFU9b3TgT1igApz', 'C': 'https://drive.google.com/uc?export=view&id=1VFJpUFecialAMXHL_HeG_2fnb1PV0WUZ'}, 'correctAnswer': 'C'}, {'id': 'ENGLG586', 'question': 'What did John do when he last visited his friends?', 'audio': 'http://docs.google.com/uc?export=open&id=1eIreSLS92OrlncgGjLNOgW_qyIZ4TllB', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1B-p-ju5AHHFKoT0cjq5ilYhc_pkuAGCo', 'B': 'https://drive.google.com/uc?export=view&id=1AQg18XVZ0N8fm9EuwdP7e8a5nzWipCjy', 'C': 'https://drive.google.com/uc?export=view&id=1MrbvLEtakyzykXAorK66ux4bX2hVpKKY'}, 'correctAnswer': 'C'}, {'id': 'ENGGG426', 'question': ["What annoyed Gary's twin brother David when they were young children?", 'Why were the twins put into different classes at school?', 'Gary remembers that, as teenagers, he and his brother', 'Gary explains that, when they were young, he and David looked so similar that', 'When talking about his music, Gary says that being twins'], 'audio': ['http://docs.google.com/uc?export=open&id=1ws5YruQe39a5TfEnVqekMml375l7Jsfe', 'http://docs.google.com/uc?export=open&id=1ws5YruQe39a5TfEnVqekMml375l7Jsfe', 'http://docs.google.com/uc?export=open&id=1ws5YruQe39a5TfEnVqekMml375l7Jsfe', 'http://docs.google.com/uc?export=open&id=1ws5YruQe39a5TfEnVqekMml375l7Jsfe', 'http://docs.google.com/uc?export=open&id=1ws5YruQe39a5TfEnVqekMml375l7Jsfe'], 'qtype': 'block', 'answers': [{'A': 'Gary not telling him things.', 'B': 'Gary being unkind to their older sister.', 'C': "Gary pretending he didn't have a brother."}, {'A': 'to stop them causing trouble', 'B': 'to improve their academic work', 'C': 'to help them make other friends'}, {'A': 'argued with each other all the time.', 'B': 'refused to support each other in fights.', 'C': 'sometimes tried to be independent of each other.'}, {'A': 'only their mother could tell which twin was which.', 'B': 'their friends stopped trying to tell them apart.', 'C': 'their teachers made them wear some identification.'}, {'A': "has increased the popularity of the brothers' band.", 'B': 'helps the brothers when they are preparing for concerts.', 'C': 'makes it difficult for him and David to write music together.'}], 'correctAnswer': ['A', 'B', 'C', 'A', 'B']}, {'id': 'ENGLG1167', 'question': "What job does Mary's brother do?", 'audio': 'http://docs.google.com/uc?export=open&id=1F-KSmoQ5flENfepF3uIfMRFXqJjoUuml', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=14EWYbhxoozwk7oMtW31l93Z8pJWulkLq', 'B': 'https://drive.google.com/uc?export=view&id=1V1QMrnGpL_Rx6e9b4e-GQn27mGUdKd1s', 'C': 'https://drive.google.com/uc?export=view&id=1WlQa-dwxL_nU34PzTCg1Yi3WJLZPOyhC'}, 'correctAnswer': 'C'}, {'id': 'ENGLG1161', 'question': 'How many children went on the school trip?', 'audio': 'http://docs.google.com/uc?export=open&id=16a50XfFuDjxQpQmlpP8Oq3Sko_plS3yw', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=16lgqfsHO7hb5U22yAGEGlUZsTvk2bsMp', 'B': 'https://drive.google.com/uc?export=view&id=1gj-g153gOE6G7lYtmgeW8H-knjmfnm8b', 'C': 'https://drive.google.com/uc?export=view&id=1thXNP_MLkglKQOG7_vAXAx9bubMFSlWg'}, 'correctAnswer': 'C'}, {'id': 'ENGGG451', 'question': ['Where is Angela working at the moment?', 'Angela likes her job because she', 'What did Angela bring home from Hong Kong?', "What time does Angela's working day begin?", 'Where did Angela meet her boyfriend?'], 'audio': ['http://docs.google.com/uc?export=open&id=1-iX2aXHK6QZ7o0w8WOciap52c-89AT85', 'http://docs.google.com/uc?export=open&id=1-iX2aXHK6QZ7o0w8WOciap52c-89AT85', 'http://docs.google.com/uc?export=open&id=1-iX2aXHK6QZ7o0w8WOciap52c-89AT85', 'http://docs.google.com/uc?export=open&id=1-iX2aXHK6QZ7o0w8WOciap52c-89AT85', 'http://docs.google.com/uc?export=open&id=1-iX2aXHK6QZ7o0w8WOciap52c-89AT85'], 'qtype': 'block', 'answers': [{'A': 'Britain', 'B': 'the USA', 'C': 'Asia'}, {'A': 'loves being in dangerous situations.', 'B': 'never knows where sheâ\x80\x99ll go next.', 'C': 'enjoys watching important events happen.'}, {'A': 'pictures', 'B': 'carpets', 'C': 'furniture'}, {'A': '8.30 am', 'B': '6.30 pm', 'C': '10.00 am'}, {'A': "at her sister's house", 'B': 'at university', 'C': 'in Hong Kong'}], 'correctAnswer': ['A', 'C', 'C', 'A', 'A']}, {'id': 'ENGLG1170', 'question': 'Which job does Max do in the programme?', 'audio': 'http://docs.google.com/uc?export=open&id=1UBP1EoWo39qniyPU2xm4ea_BFMTWP5Rv', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1cT2KOzYIQqdzhOAKZcpxgTpKydVO3XiF', 'B': 'https://drive.google.com/uc?export=view&id=1Y3uy5nlSfyvfjGh8IDKRQo2p3bGWfvXq', 'C': 'https://drive.google.com/uc?export=view&id=19BT1nCByOdM6FJ1iUJOZHiNxIrSfPz9X'}, 'correctAnswer': 'A'}, {'id': 'ENGLM1033', 'question': 'The A-Z of Photography will not interest experienced photographers because', 'audio': 'http://docs.google.com/uc?export=open&id=1uVphvzbaNNGh8BBBpL2sUE8dZSZV-uL7', 'qtype': 'text', 'answers': {'A': 'the information is unsuitable.', 'B': 'the pictures are simple.', 'C': 'there are some mistakes in it.'}, 'correctAnswer': 'A'}, {'id': 'ENGLG1158', 'question': 'Which girl is Sarah?', 'audio': 'http://docs.google.com/uc?export=open&id=1DpPNViAkafEeNRoE-JgAndM45aRuur4u', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=18Yk0_6q0HnjiGcpAxILaHj_cy4HtKbRm', 'B': 'https://drive.google.com/uc?export=view&id=15_Do3NxX_3mkNW8Vgq7JCHY9ac0SnT2o', 'C': 'https://drive.google.com/uc?export=view&id=1ckD7bht8cJxAjYXfLfsfHbjJnK6k5fcr'}, 'correctAnswer': 'C'}, {'id': 'ENGLM370', 'question': 'You overhear two people talking on a bus tour of a city. What do they agree', 'audio': 'http://docs.google.com/uc?export=open&id=1dDnJGlfFAWWUoUDkNU80-WZBuMvVjE5N', 'qtype': 'text', 'answers': {'A': 'how busy the city is', 'B': 'how noisy the city is', 'C': 'how dirty the city is'}, 'correctAnswer': 'A'}, {'id': 'ENGLG539', 'question': 'How will Nick get to the airport?', 'audio': 'http://docs.google.com/uc?export=open&id=1wHimoGV2zfJAzRQSaTzpyqokWqXNYn2I', 'qtype': 'image', 'answers': {'A': 'https://drive.google.com/uc?export=view&id=1zr_gM9i8-Q4YiTKGENoyIf-oiOFbyt8S', 'B': 'https://drive.google.com/uc?export=view&id=1dQjtdBDx3DQ3pZbj_dsxsLquMMryYH8h', 'C': 'https://drive.google.com/uc?export=view&id=1SiNPWwhoxhhA071lsS_9gskuySqv-LF3'}, 'correctAnswer': 'A'}];  
+    var i = 0;
+
+    //shuffle the questions
+    function shuffle(array){
+        var currentIndex = array.length,  randomIndex;
+
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+        return array;
+        }
+
+    // Functions
+    function buildQuiz(){
+
+        //start by shuffling the question order and resetting playback speed
+        shuffle(myQuestions);
+
+        // variable to store the HTML output
+        const output = [];
+
+        // for each question...
+        for(var i = 0; i < myQuestions.length; i++){
+            const answers = [];
+
+            if(myQuestions[i].qtype == "block"){
+                for(j = 0; j < 5; j++){
+                    const sub_answers = [];
+                    for(letter in myQuestions[i].answers[j]){
+                        sub_answers.push(
+                        `<label>
+                        <input type="radio" id="funky${j}" name="question${i}_${j}" value="${letter}">
+                        ${letter} : ${myQuestions[i].answers[j][letter]}
+                        </label>`
+                    )
+                    }
+                answers.push(sub_answers)
+                }
+            // add this question and its answers to the output
+            output.push(
+            `<div class="slide">
+
+                <div class="header"> Please answer the 5 questions below: </div>
+                <br>
+                <div class="speedcontrolcontainer">
+                    <audio src=${myQuestions[i].audio[0]} controls></audio>
+                    <div>
+                        <label for="pbrate">Speed:</label>
+                        <input type="range" id="pbrate" min=0.5 max=1.0 value=1 step=0.1>
+                        <span></span>
+                    </div>
+                </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[0]}</div>
+                <div class="answers"> ${answers[0].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[1]}</div>
+                <div class="answers"> ${answers[1].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[2]}</div>
+                <div class="answers"> ${answers[2].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[3]}</div>
+                <div class="answers"> ${answers[3].join("")} </div>
+                <br>
+                <div class = "question">${myQuestions[i].question[4]}</div>
+                <div class="answers"> ${answers[4].join("")} </div>
+                <br>
+                <button id="submit${i}">Mark question</button>
+                <button id="next${i}" hidden>Next question</button>
+                <br><br><br>
+            </div>`
+            )
+            } else if(myQuestions[i].qtype == "image"){
+                for(letter in myQuestions[i].answers){
+                    answers.push(
+                    `<label>
+                    <input type="radio" id="funky" name="question${i}" value="${letter}">
+                    ${letter} : <img src=${myQuestions[i].answers[letter]} width=30% height=auto>
+                    </label>`
+                )
+                }            
+                // add this question and its answers to the output
+                output.push(
+                `<div class="slide">
+                    <div class="header">${myQuestions[i].question}</div>
+                    <br>
+                    <div class="speedcontrolcontainer">
+                        <audio src=${myQuestions[i].audio} controls></audio>
+                        <div>
+                            <label for="pbrate">Speed:</label>
+                            <input type="range" id="pbrate" min=0.5 max=1.0 value=1 step=0.1>
+                            <span></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="answers"> ${answers.join("")} </div>
+                    <br>
+                    <button id="submit${i}">Mark question</button>
+                    <button id="next${i}" hidden>Next question</button>
+                    <br>
+                </div>`
+                )
+            } else{
+                for(letter in myQuestions[i].answers){
+                    answers.push(
+                    `<label>
+                    <input type="radio" id="funky" name="question${i}" value="${letter}">
+                    ${letter} : ${myQuestions[i].answers[letter]}
+                    </label>`
+                )
+                }
+                // add this question and its answers to the output
+                output.push(
+                `<div class="slide">
+                    <div class="header">${myQuestions[i].question}</div>
+                    <br>
+                    <div class="speedcontrolcontainer">
+                        <audio src=${myQuestions[i].audio} controls></audio>
+                        <div>
+                            <label for="pbrate">Speed:</label>
+                            <input type="range" id="pbrate" min=0.5 max=1.0 value=1 step=0.1>
+                            <span></span>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="answers"> ${answers.join("")} </div>
+                    <br>
+                    <button id="submit${i}">Mark question</button>
+                    <button id="next${i}" hidden>Next question</button>
+                    <br>
+                </div>`
+                )
+            }
+        }
+        quizContainer.innerHTML = output.join('');
+        const audio = document.querySelector('.speedcontrolcontainer  audio');
+        const playbackrate = document.querySelector('.speedcontrolcontainer input');
+        const display = document.querySelector('.speedcontrolcontainer span');
+        const displayvalue = val => {
+        return parseInt(val * 100, 10) + '%'
+        }
+        if (window.localStorage.pbspeed) {
+        audio.playbackRate = window.localStorage.pbspeed;
+        playbackrate.value = window.localStorage.pbspeed;
+        }
+        display.innerText = displayvalue(audio.playbackRate);
+        playbackrate.addEventListener('change', e => {
+        audio.playbackRate = playbackrate.value;
+        display.innerText = displayvalue(playbackrate.value);
+        window.localStorage.pbspeed = playbackrate.value;
+        });
+    }
+
+    function showResults(){
+
+        // gather answer containers from our quiz
+        const answerContainers = quizContainer.querySelectorAll('.answers');
+
+        if(myQuestions[i].qtype == "block"){
+
+            const answerList = [];
+            //iterate through all 5 questions in the block
+            for(j = 0; j < 5; j++){
+                var block = document.getElementsByName(`question${i}_${j}`);
+                var userAnswer;
+                
+                if(!block[0].checked && !block[1].checked && !block[2].checked){
+                    answerList.push("NaN")
+                }
+                if(block[0].checked){
+                    userAnswer = "A"
+                    answerList.push(userAnswer)
+                }
+                if(block[1].checked){
+                    userAnswer = "B"
+                    answerList.push(userAnswer)
+                }
+                if(block[2].checked){
+                    userAnswer = "C"
+                    answerList.push(userAnswer)
+                }
+            }
+
+            var counter = 0;
+            for(j = 0; j < 5; j++){
+                if(answerList[j] == myQuestions[i].correctAnswer[j]){
+                    counter ++;
+                }
+            }
+            if(counter > 2){
+                submitButton.innerText = `You scored ${counter} out of 5`
+                submitButton.style.backgroundColor = "green"
+                console.log(myQuestions[i].id, "correct")
+            } else{
+                submitButton.innerText = `You scored ${counter} out of 5`
+                submitButton.style.backgroundColor = "red"
+                console.log(myQuestions[i].id, "incorrect")
+            }
+
+        } else{
+            // find selected answer
+            var radios = document.getElementsByName(`question${i}`);
+            var userAnswer;
+
+            if(radios[0].checked){
+                userAnswer = "A"
+            }
+            if(radios[1].checked){
+                userAnswer = "B"
+            }
+            if(radios[2].checked){
+                userAnswer = "C"
+            }
+            // if answer is correct
+            if(userAnswer === myQuestions[i].correctAnswer){
+                // color the answers green
+                submitButton.innerText = "CORRECT"
+                submitButton.style.backgroundColor = "green"
+                console.log(myQuestions[i].id, "correct")
+            }
+            // if answer is wrong or blank
+            else{
+                // color the answers red
+                submitButton.innerText = "INCORRECT"
+                submitButton.style.backgroundColor = "red"
+                console.log(myQuestions[i].id, "incorrect")
+            }
+        }
+        submitButton.disabled = true;
+        nextButton.hidden = false;
+        }
+
+    function showBlockResults(){
+        const answerContainers = quizContainer.querySelectorAll('.answers');
+    }
+    
+    function showSlide(n) {
+        submitButton = document.getElementById(`submit${i}`);
+        submitButton.addEventListener('click', showResults);
+
+        nextButton = document.getElementById(`next${i}`);
+        nextButton.addEventListener('click', showNextSlide);
+
+        slides[currentSlide].classList.remove('active-slide');
+        slides[n].classList.add('active-slide');
+        currentSlide = n;
+
+        if(currentSlide === myQuestions.length-1){
+        nextButton.style.display = 'none';
+        submitButton.style.display = 'inline-block';
+        } else{
+        nextButton.style.display = 'inline-block';
+        submitButton.style.display = 'inline-block';
+        }
+    }
+
+    function showNextSlide() {
+        i++;
+        showSlide(currentSlide + 1);
+    }
+
+    // Kick things off
+    buildQuiz();
+
+    //variables
+    const resultsContainer = document.getElementById('results');
+
+    // Pagination
+    //const nextButton = document.getElementById("next");
+    const slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    // Show the first slide
+    var submitButton;
+    showSlide(currentSlide);
+
+    })();
+</script>
+{% endblock content %}
