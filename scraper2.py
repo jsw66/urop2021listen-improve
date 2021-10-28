@@ -219,5 +219,3 @@ b1_js = js(b1_list)
 b2_js = js(b2_list)
 c1_js = js(c1_list)
 c2_js = js(c2_list)
-
-print(b2_js)
